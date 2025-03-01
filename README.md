@@ -25,6 +25,7 @@ Adoptly is a web application built with Django that helps users find and adopt p
 
 3. Install the required dependencies:
     ```bash
+    cd adoptly
     pip install -r requirements.txt
     ```
 
