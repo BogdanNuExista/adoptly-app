@@ -1,0 +1,81 @@
+{% load bootstrap4 %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Adoptly</title>
+    {% bootstrap_css %}
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        .hero-section {
+            background: url('https://source.unsplash.com/1600x900/?pets,animals') no-repeat center center/cover;
+            color: white;
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            backdrop-filter: blur(2px);
+        }
+        .hero-section h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        .hero-section p {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .btn-primary {
+            background-color: #B2456E;
+            border-color: #B2456E;
+        }
+        .btn-light {
+            background-color: #FBEAE7;
+            border-color: #FBEAE7;
+            color: #552619;
+        }
+        .text-primary {
+            color: #B2456E !important;
+        }
+        .text-secondary {
+            color: #552619 !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hero-section">
+        <h1>Welcome to Adoptly 🐾</h1>
+        <p>Find your perfect pet or help an animal find a loving home!</p>
+        <a href="{% url 'animal_list' %}" class="btn btn-light btn-lg"><i class="fas fa-paw"></i> View Animals</a>
+        <a href="{% url 'add_animal' %}" class="btn btn-primary btn-lg"><i class="fas fa-plus-circle"></i> Add an Animal</a>
+    </div>
+
+    <div class="container mt-5">
+        <h2 class="text-center text-primary">Why Adopt?</h2>
+        <div class="row mt-4">
+            <div class="col-md-4 text-center">
+                <i class="fas fa-heart fa-3x text-danger"></i>
+                <h4 class="text-secondary">Save a Life</h4>
+                <p>By adopting, you're giving a homeless animal a second chance at life.</p>
+            </div>
+            <div class="col-md-4 text-center">
+                <i class="fas fa-hand-holding-heart fa-3x text-success"></i>
+                <h4 class="text-secondary">Companionship</h4>
+                <p>Pets bring joy, love, and companionship into your home.</p>
+            </div>
+            <div class="col-md-4 text-center">
+                <i class="fas fa-paw fa-3x text-primary"></i>
+                <h4 class="text-secondary">Support Animal Welfare</h4>
+                <p>Adopting a pet helps reduce the number of animals in shelters.</p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

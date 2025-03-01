@@ -1,0 +1,49 @@
+{% load bootstrap4 %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adopt {{ animal.name }} - Adoptly</title>
+    {% bootstrap_css %}
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+        .btn-secondary {
+            background-color: #FBEAE7;
+            border-color: #FBEAE7;
+            color: #552619;
+        }
+        .text-primary {
+            color: #B2456E !important;
+        }
+        .text-secondary {
+            color: #552619 !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <h1 class="text-center text-primary">Adopt {{ animal.name }}</h1>
+
+        <div class="card shadow-lg">
+            <img src="{{ animal.image.url }}" class="card-img-top" alt="{{ animal.name }}">
+            <div class="card-body">
+                <h5 class="card-title text-secondary">{{ animal.name }}</h5>
+                <p><strong>Species:</strong> {{ animal.species }}</p>
+                <p><strong>Age:</strong> {{ animal.age }} years</p>
+                <p>{{ animal.description }}</p>
+
+                <form method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-success"><i class="fas fa-check"></i> Confirm Adoption</button>
+                    <a href="{% url 'animal_list' %}" class="btn btn-secondary"><i class="fas fa-times"></i> Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

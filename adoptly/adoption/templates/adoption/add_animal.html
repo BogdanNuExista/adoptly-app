@@ -1,0 +1,60 @@
+{% load bootstrap4 %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add an Animal - Adoptly</title>
+    {% bootstrap_css %}
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        .btn-primary {
+            background-color: #B2456E;
+            border-color: #B2456E;
+        }
+        .btn-secondary {
+            background-color: #FBEAE7;
+            border-color: #FBEAE7;
+            color: #552619;
+        }
+        .text-primary {
+            color: #B2456E !important;
+        }
+        .text-secondary {
+            color: #552619 !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center text-primary"><i class="fas fa-paw"></i> Add an Animal</h2>
+        <div class="card shadow-lg p-4">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label class="form-label">Animal Name</label>
+                    <input type="text" name="name" class="form-control" placeholder="Enter animal name" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Species</label>
+                    <input type="text" name="species" class="form-control" placeholder="Enter species (Dog, Cat, etc.)" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Age</label>
+                    <input type="number" name="age" class="form-control" min="0" placeholder="Enter age in years" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Description</label>
+                    <textarea name="description" class="form-control" rows="4" placeholder="Write something about the animal..." required></textarea>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Animal Image</label>
+                    <input type="file" name="image" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary"><i class="fas fa-plus"></i> Add Animal</button>
+                <a href="{% url 'animal_list' %}" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+{% load bootstrap4 %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete {{ animal.name }} - Adoptly</title>
+    {% bootstrap_css %}
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+        .btn-secondary {
+            background-color: #FBEAE7;
+            border-color: #FBEAE7;
+            color: #552619;
+        }
+        .text-primary {
+            color: #B2456E !important;
+        }
+        .text-secondary {
+            color: #552619 !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <h1 class="text-center text-primary">Are you sure you want to delete {{ animal.name }}?</h1>
+        <div class="card shadow-lg p-4">
+            <form method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i> Delete</button>
+                <a href="{% url 'animal_list' %}" class="btn btn-secondary"><i class="fas fa-times"></i> Cancel</a>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
