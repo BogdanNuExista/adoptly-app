@@ -54,6 +54,9 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '192.168.2.103']
+
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
