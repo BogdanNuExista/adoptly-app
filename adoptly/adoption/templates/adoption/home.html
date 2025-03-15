@@ -21,14 +21,22 @@
             backdrop-filter: blur(2px);
         }
         .hero-section h1 {
-            font-size: 3rem;
+            font-size: 4rem; /* Larger font size */
             font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4); /* Add a stronger shadow */
+            color: #FFD700; /* Gold color for the text */
+            margin-bottom: 20px; /* Add spacing below the heading */
+            animation: fadeIn 2s ease-in-out; /* Add a fade-in animation */
         }
         .hero-section p {
             font-size: 1.5rem;
             max-width: 800px;
             margin: 0 auto;
+        }
+        .button-group {
+            display: flex;
+            gap: 15px; /* Add spacing between buttons */
+            margin-top: 20px;
         }
         .btn-primary {
             background-color: #B2456E;
@@ -39,11 +47,34 @@
             border-color: #FBEAE7;
             color: #552619;
         }
+        .btn-detect {
+            background-color: #FFD700; /* Gold color for Detect Dog Breed */
+            border-color: #FFD700;
+            color: #552619;
+            font-weight: bold;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        .btn-detect:hover {
+            background-color: #FFC107; /* Darker gold on hover */
+            border-color: #FFC107;
+        }
         .text-primary {
             color: #B2456E !important;
         }
         .text-secondary {
             color: #552619 !important;
+        }
+
+        /* Add fade-in animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
@@ -52,8 +83,11 @@
     <div class="hero-section">
         <h1>Welcome to Adoptly 🐾</h1>
         <p>Find your perfect pet or help an animal find a loving home!</p>
-        <a href="{% url 'animal_list' %}" class="btn btn-light btn-lg"><i class="fas fa-paw"></i> View Animals</a>
-        <a href="{% url 'add_animal' %}" class="btn btn-primary btn-lg"><i class="fas fa-plus-circle"></i> Add an Animal</a>
+        <div class="button-group">
+            <a href="{% url 'animal_list' %}" class="btn btn-light btn-lg"><i class="fas fa-paw"></i> View Animals</a>
+            <a href="{% url 'add_animal' %}" class="btn btn-primary btn-lg"><i class="fas fa-plus-circle"></i> Add an Animal</a>
+            <a href="{% url 'detect_dog_breed' %}" class="btn btn-detect btn-lg"><i class="fas fa-dog"></i> Detect Dog Breed</a>
+        </div>
     </div>
 
     <div class="container mt-5">

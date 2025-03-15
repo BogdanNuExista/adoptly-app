@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Animal
-from .forms import AnimalForm
+from .forms import AnimalForm, DogBreedForm
 from rest_framework import viewsets
 from .serializers import AnimalSerializer
+from .utils.breed_detection import BreedDetector
 
 def home(request):
     return render(request, 'adoption/home.html')
@@ -56,3 +57,17 @@ def delete_animal(request, animal_id):
         return redirect('animal_list')
 
     return render(request, 'adoption/delete_animal.html', {'animal': animal})
+
+
+def detect_dog_breed(request):
+    breed = None
+    if request.method == "POST":
+        form = DogBreedForm(request.POST, request.FILES)
+        if form.is_valid():
+            image = form.cleaned_data['image']
+            detector = BreedDetector()
+            breed = detector.detect_breed(image)  # Pass the uploaded image to the detector
+    else:
+        form = DogBreedForm()
+
+    return render(request, 'adoption/detect_breed.html', {'form': form, 'breed': breed})
