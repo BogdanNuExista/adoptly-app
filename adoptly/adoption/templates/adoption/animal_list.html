@@ -6,6 +6,18 @@
     {% bootstrap_css %}
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <style>
+        .card {
+            height: 100%; /* Ensure all cards are the same height */
+        }
+        .card-img-top {
+            height: 200px; /* Set a fixed height for images */
+            object-fit: cover; /* Ensure images are cropped proportionally */
+        }
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Space out content evenly */
+        }
         .card:hover {
             transform: scale(1.05);
             transition: transform 0.3s ease;
@@ -25,6 +37,23 @@
         .text-secondary {
             color: #552619 !important;
         }
+        .action-buttons .btn {
+            font-size: 1.1rem; /* Make buttons smaller */
+            margin-right: 5px; /* Add spacing between buttons */
+            padding: 5px 10px; /* Adjust padding for smaller size */
+        }
+        .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+        .btn-warning {
+            background-color: #ffc107;
+            border-color: #ffc107;
+        }
+        .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
     </style>
 </head>
 <body>
@@ -33,7 +62,7 @@
 
         <div class="row mt-4">
             {% for animal in animals %}
-            <div class="col-md-4">
+            <div class="col-md-4 d-flex align-items-stretch">
                 <div class="card shadow-lg">
                     <img src="{{ animal.image.url }}" class="card-img-top" alt="{{ animal.name }}">
                     <div class="card-body">
@@ -41,9 +70,11 @@
                         <p><strong>Species:</strong> {{ animal.species }}</p>
                         <p><strong>Age:</strong> {{ animal.age }} years</p>
                         <p>{{ animal.description }}</p>
-                        <a href="{% url 'adopt_animal' animal.id %}" class="btn btn-success"><i class="fas fa-heart"></i> Adopt</a>
-                        <a href="{% url 'edit_animal' animal.id %}" class="btn btn-warning"><i class="fas fa-edit"></i> Edit</a>
-                        <a href="{% url 'delete_animal' animal.id %}" class="btn btn-danger"><i class="fas fa-trash"></i> Delete</a>
+                        <div class="action-buttons">
+                            <a href="{% url 'adopt_animal' animal.id %}" class="btn btn-success"><i class="fas fa-heart"></i> Adopt</a>
+                            <a href="{% url 'edit_animal' animal.id %}" class="btn btn-warning"><i class="fas fa-edit"></i> Edit</a>
+                            <a href="{% url 'delete_animal' animal.id %}" class="btn btn-danger"><i class="fas fa-trash"></i> Delete</a>
+                        </div>
                     </div>
                 </div>
             </div>
