@@ -4,6 +4,7 @@ from .forms import AnimalForm, DogBreedForm
 from rest_framework import viewsets
 from .serializers import AnimalSerializer
 from .utils.breed_detection import BreedDetector
+from django.http import JsonResponse
 
 def home(request):
     return render(request, 'adoption/home.html')
@@ -58,16 +59,18 @@ def delete_animal(request, animal_id):
 
     return render(request, 'adoption/delete_animal.html', {'animal': animal})
 
+from django.http import JsonResponse
 
 def detect_dog_breed(request):
-    breed = None
-    if request.method == "POST":
+    if request.method == "POST" and request.headers.get("X-Requested-With") == "XMLHttpRequest":
         form = DogBreedForm(request.POST, request.FILES)
         if form.is_valid():
             image = form.cleaned_data['image']
             detector = BreedDetector()
             breed = detector.detect_breed(image)  # Pass the uploaded image to the detector
+            return JsonResponse({'breed': breed})  # Return the breed as JSON
+        else:
+            return JsonResponse({'error': 'Invalid form submission'}, status=400)
     else:
         form = DogBreedForm()
-
-    return render(request, 'adoption/detect_breed.html', {'form': form, 'breed': breed})
+        return render(request, 'adoption/detect_breed.html', {'form': form})

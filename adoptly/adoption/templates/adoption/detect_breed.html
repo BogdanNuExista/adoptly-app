@@ -69,17 +69,13 @@
             </div>
             <!-- Form and Result Section -->
             <div class="col-md-6 form-container">
-                <form method="post" enctype="multipart/form-data" class="mt-4">
+                <form id="breed-form" enctype="multipart/form-data" class="mt-4">
                     {% csrf_token %}
                     {{ form.as_p }}
                     <button type="submit" class="btn btn-primary w-100">Detect Breed</button>
                 </form>
 
-                {% if breed %}
-                <div class="alert alert-success mt-4 text-center">
-                    <strong>Predicted Breed:</strong> {{ breed }}
-                </div>
-                {% endif %}
+                <div id="result" class="mt-4 text-center"></div>
             </div>
         </div>
     </div>
@@ -100,6 +96,41 @@
             } else {
                 imagePreview.innerHTML = `<p class="text-center text-secondary">Upload an image to preview it here</p>`;
             }
+        });
+
+        // JavaScript to handle form submission via AJAX
+        const form = document.getElementById('breed-form');
+        const resultDiv = document.getElementById('result');
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault(); // Prevent the page from refreshing
+
+            const formData = new FormData(form);
+
+            fetch("{% url 'detect_dog_breed' %}", {
+                method: "POST",
+                body: formData,
+                headers: {
+                    "X-Requested-With": "XMLHttpRequest", // Mark this as an AJAX request
+                },
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.breed) {
+                    resultDiv.innerHTML = `<div class="alert alert-success"><strong>Predicted Breed:</strong> ${data.breed}</div>`;
+                } else if (data.error) {
+                    resultDiv.innerHTML = `<div class="alert alert-danger">${data.error}</div>`;
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                resultDiv.innerHTML = `<div class="alert alert-danger">An error occurred. Please try again.</div>`;
+            });
         });
     </script>
 </body>
